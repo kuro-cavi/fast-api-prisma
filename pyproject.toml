@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["dev <dev@example.com>"]
+
+[tool.poetry.scripts]
+start = "server:start"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+fastapi = "^0.79.0"
+uvicorn = "^0.18.2"
+gunicorn = "^20.1.0"
+alembic = "^1.8.1"
+mysqlclient = "^2.1.1"
+python-dotenv = "^0.20.0"
+PyYAML = "^6.0"
+prisma = "^0.7.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[virtualenvs]
+create = false
+in-project = true

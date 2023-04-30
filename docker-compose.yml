@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  ### Python #########################################
+  python:
+    build:
+      context: ./docker/python
+    container_name: "fast-api-prisma_python"
+    volumes:
+      - .:/workspace
+    ports:
+      - "8000:8000"
+    tty: true
+
+  ### Database #########################################
+  mysql:
+    build:
+      context: ./docker/mysql
+    container_name: "fast-api-prisma_mysql"
+    environment:
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./docker/.docker-data/mysql:/var/lib/mysql
+      - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/.docker-data/logs/mysql:/var/log/mysql
+    ports:
+      - "3306:3306"

@@ -1,0 +1,36 @@
+version: 1
+
+disable_existing_loggers: no
+
+formatters:
+  default:
+    format: '%(asctime)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: default
+    stream: ext://sys.stdout
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: default
+    when: MIDNIGHT
+    filename: ./app/storage/logs/fastapi.log
+    backupCount: 31
+    encoding: 'utf-8'
+
+loggers:
+  root:
+    level: DEBUG
+    handlers: [ console ]
+  fastapi:
+    level: DEBUG
+    handlers: [ file, console ]
+    propagate: no
+    qualname: file
+  uvicorn:
+    level: INFO
+    handlers: [ console ]
+    propagate: no
+    qualname: uvicorn
